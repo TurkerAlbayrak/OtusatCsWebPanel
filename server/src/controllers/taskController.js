@@ -36,8 +36,9 @@ exports.createTask = async (req, res) => {
   try {
     const { title, description, assignedTo, assignedToName, status, priority, dueDate } = req.body;
     
+    const crypto = require('crypto');
     const newTask = {
-      id: "task-" + Date.now(),
+      id: crypto.randomUUID(),
       title,
       description,
       assignedTo,
