@@ -6,7 +6,7 @@ export default function CompletedTasks() {
 
   useEffect(() => {
     const fetchTasks = async () => {
-      const res = await fetch('http://localhost:5000/api/completed-tasks', {
+      const res = await fetch('/api/completed-tasks', {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
       });
       if (res.ok) {
