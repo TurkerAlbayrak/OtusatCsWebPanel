@@ -5,8 +5,8 @@ export default function TaskModal({ isOpen, onClose, onSave, task = null }) {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
-    assignedTo: 'user-002',
-    assignedToName: 'Kaan',
+    assignedTo: 'user-003',
+    assignedToName: 'İlker',
     status: 'todo',
     priority: 'medium',
     dueDate: ''
@@ -14,7 +14,6 @@ export default function TaskModal({ isOpen, onClose, onSave, task = null }) {
 
   const users = [
     { id: 'user-001', name: 'Türker' },
-    { id: 'user-002', name: 'Kaan' },
     { id: 'user-003', name: 'İlker' },
     { id: 'user-004', name: 'Ayşe' },
     { id: 'user-005', name: 'Lara' }
@@ -35,8 +34,8 @@ export default function TaskModal({ isOpen, onClose, onSave, task = null }) {
       setFormData({
         title: '',
         description: '',
-        assignedTo: 'user-002',
-        assignedToName: 'Kaan',
+        assignedTo: 'user-003',
+        assignedToName: 'İlker',
         status: 'todo',
         priority: 'medium',
         dueDate: ''
