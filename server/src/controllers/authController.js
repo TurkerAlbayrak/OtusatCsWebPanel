@@ -46,3 +46,16 @@ exports.me = (req, res) => {
     res.status(401).json({ message: "Oturum yok" });
   }
 };
+
+exports.getUsers = async (req, res) => {
+  try {
+    const { data, error } = await supabase
+      .from('users')
+      .select('id, name, username, role');
+    if (error) throw error;
+    res.json(data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Sunucu hatası." });
+  }
+};

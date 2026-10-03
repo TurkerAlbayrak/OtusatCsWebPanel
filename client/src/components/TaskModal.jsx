@@ -2,22 +2,33 @@ import { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 
 export default function TaskModal({ isOpen, onClose, onSave, task = null }) {
+  const [users, setUsers] = useState([]);
   const [formData, setFormData] = useState({
     title: '',
     description: '',
-    assignedTo: 'user-003',
-    assignedToName: 'İlker',
+    assignedTo: '',
+    assignedToName: '',
     status: 'todo',
     priority: 'medium',
     dueDate: ''
   });
 
-  const users = [
-    { id: 'user-001', name: 'Türker' },
-    { id: 'user-003', name: 'İlker' },
-    { id: 'user-004', name: 'Ayşe' },
-    { id: 'user-005', name: 'Lara' }
-  ];
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const res = await fetch('/api/auth/users', {
+          headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+        });
+        if (res.ok) {
+          const data = await res.json();
+          setUsers(data);
+        }
+      } catch (err) {
+        console.error("Kullanıcılar alınamadı", err);
+      }
+    };
+    fetchUsers();
+  }, []);
 
   useEffect(() => {
     if (task) {
@@ -34,14 +45,14 @@ export default function TaskModal({ isOpen, onClose, onSave, task = null }) {
       setFormData({
         title: '',
         description: '',
-        assignedTo: 'user-003',
-        assignedToName: 'İlker',
+        assignedTo: users.length > 0 ? users[0].id : '',
+        assignedToName: users.length > 0 ? users[0].name : '',
         status: 'todo',
         priority: 'medium',
         dueDate: ''
       });
     }
-  }, [task, isOpen]);
+  }, [task, isOpen, users]);
 
   if (!isOpen) return null;
 
